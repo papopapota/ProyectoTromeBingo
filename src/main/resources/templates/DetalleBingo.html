@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>Insert title here</title>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+
+</head>
+<body>
+	<div class="container m-5">
+		
+			     <form method="post" th:action="@{/AddLinea/}+${cab.idBingo}" >
+			    <input type="hidden" th:value="${cab.idBingo}" >
+			    <button class="btn btn-warning" type="submit">añadir una linea</button>
+			</form>	
+	<form method="post" th:action="@{/guardarCambios}" th:object="${detalleBingoForm}">
+		<div class="form-control" th:text="${cab.idBingo}"></div>
+		<table class="table">
+		  <thead>
+		    <tr>
+		      <th scope="col">B</th>
+		      <th scope="col">I</th>
+		      <th scope="col">N</th>
+		      <th scope="col">G</th>
+		      <th scope="col">O</th>
+				<th scope="col">#</th>
+		    </tr>
+		  </thead>
+		  <tbody>
+			 
+				  <tr th:each="detalle,d : *{detalleList}">
+				      <input type="hidden" th:field="*{detalleList[__${d.index}__].id}" >
+				      <input type="hidden" th:field="*{detalleList[__${d.index}__].idBingo}" >
+				    <td><input type="text" class="form-control" th:field="*{detalleList[__${d.index}__].B}" /></td>
+ 					<td><input type="text" class="form-control" th:field="*{detalleList[__${d.index}__].I}" /></td>
+				   <td><input type="text" class="form-control" th:field="*{detalleList[__${d.index}__].N}" /></td>
+				    <td><input type="text" class="form-control" th:field="*{detalleList[__${d.index}__].G}" /></td>
+				     <td><input type="text" class="form-control" th:field="*{detalleList[__${d.index}__].O}" /></td>    
+					<td> <a th:href="@{/EliminarLinea/{id}(id=*{detalleList[__${d.index}__].id})}" class="btn btn-danger">Eliminar</a>  </td>
+		    	 </tr>
+			  
+		  </tbody>
+		</table>
+		<button class="btn btn-success " type="submit" value="Guardar" >Guardar</button>
+	</form>	
+	</div>
+</body>
+</html>
