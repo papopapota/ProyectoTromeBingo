@@ -17,4 +17,5 @@ public class CabBingo {
 	private String idBingo ;
 	private int idUsu ;
 	private boolean estado;
+	private Boolean revision;
 }

@@ -62,7 +62,7 @@ public class ControllerBingo {
 		model.addAttribute("cab",cab);
 		model.addAttribute("detalleBingoForm",detalleBingoForm);
 		return "DetalleBingo";
-	}
+	} 
 	
 	
 	@GetMapping("/registrarForm")
@@ -72,7 +72,7 @@ public class ControllerBingo {
 		
 	
 		return "registerCab";
-	}
+	}// hola
 	
 	@PostMapping("/registrarAction")
 	String registrarAction (@ModelAttribute CabBingo cabBingo) {
@@ -160,6 +160,14 @@ public class ControllerBingo {
 		DetalleBingoForm detalleBingoForm = new DetalleBingoForm();
 		
 		cab = repoCabBingo.getById(idBingo);
+		
+		cab.setRevision(true);
+		try {
+			repoCabBingo.save(cab);
+		} catch (Exception e) {
+			// TODO: handle exception
+			System.out.println(e);
+		}
 		
 		if (cab != null) {
 				detalleList =repoDetalleBingo.findAllByIdBingo(cab.getIdBingo());
@@ -262,6 +270,11 @@ public class ControllerBingo {
 			
 			if ((B == 5) || (I == 5) || (N == 5) || (G == 5) || (O == 5)) {
 				mensaje += "Nro Ganador de bingo: " + cab.getIdBingo() + "<br>"  ; 
+			}else {
+				if (mensaje=="") {
+					mensaje= "no";
+				}
+				
 			}
 			
 		}

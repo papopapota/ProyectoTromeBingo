@@ -17,6 +17,8 @@ create table tb_Cab_Bingo(
 	foreign key (id_usu) references tb_Usuario(id_usu)
 );
 
+ALTER TABLE tb_Cab_Bingo
+ADD  COLUMN revision bit ;
 
 create table tb_Detalle_Bingo(
 	id int auto_increment primary key,
