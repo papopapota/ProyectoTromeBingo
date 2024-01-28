@@ -48,7 +48,7 @@ numero int unique
 );
 
 ALTER TABLE numerosobtenidos
-MODIFY  COLUMN dia_semana int , ADD foreign key  DiaSemanaRelacion (dia_semana) references tb_dias_Semana(id) ;
+add  COLUMN dia_semana int , ADD foreign key  DiaSemanaRelacion (dia_semana) references tb_dias_Semana(id) ;
 
 
 
@@ -57,4 +57,4 @@ select * from tb_Cab_Bingo;
 select * from tb_Detalle_Bingo;
 select * from numerosobtenidos;
 insert into tb_Usuario values (1 , 'admin');
-insert into tb_Detalle_Bingo values (null , '672518' , '1','1','1','1','1');
+-- insert into tb_Detalle_Bingo values (null , '672518' , '1','1','1','1','1');
