@@ -11,7 +11,7 @@ create table tb_Usuario(
 
 
 create table tb_Cab_Bingo(
-	id_bingo char(6) primary key ,
+	id_bingo char(7) primary key ,
     id_usu int ,
     estado bit, 
 	foreign key (id_usu) references tb_Usuario(id_usu)
@@ -22,7 +22,7 @@ ADD  COLUMN revision bit ;
 
 create table tb_Detalle_Bingo(
 	id int auto_increment primary key,
-	id_bingo char(6),
+	id_bingo char(7),
 	B char(3) ,
     I char(3) ,
     N char(3) ,

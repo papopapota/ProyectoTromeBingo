@@ -87,6 +87,68 @@ $env:SPRING_DATASOURCE_PASSWORD = 'tu_pass'
 
 - Se añadió una dependencia H2 y `src/main/resources/application-dev.properties` para facilitar ejecución local.
 
+## Extracción de números desde una imagen (OCR)
+
+El proyecto incluye un endpoint que permite subir una imagen con números y guardarlos automáticamente en el CRUD de números.
+
+- Endpoint: `POST /upload-numbers`
+- Parámetros multipart:
+	- `file`: el archivo de imagen (jpg/png/...)
+	- `diaSemana` (opcional): id del día asociado (por defecto `1`)
+
+Requisitos:
+
+- Tener instalado Tesseract OCR en el sistema y disponible en `PATH`.
+	- Windows: puedes instalarlo desde https://github.com/tesseract-ocr/tesseract o usar Chocolatey: `choco install tesseract`.
+	- Verifica con:
+
+```powershell
+tesseract --version
+```
+
+
+
+
+- Chocolatey:
+
+```powershell
+choco install tesseract
+```
+
+
+Tess4J (opcional)
+------------------
+Si prefieres que la aplicación haga OCR completamente desde la JVM (sin depender del ejecutable del sistema), se añadió soporte para Tess4J (binding Java). Para que Tess4J funcione correctamente necesitas:
+
+- Asegurarte de que la dependencia `tess4j` esté presente (ya la agregué al `pom.xml`).
+- Tener los datos de idioma (`tessdata`) disponibles. Por ejemplo, copia la carpeta `tessdata` en una ruta y exporta la variable de entorno `TESSDATA_PREFIX` apuntando a la carpeta que contiene `tessdata` (no a la carpeta `tessdata` en sí, sino a su padre según tu instalación) o ajusta el datapath en código.
+
+Ejemplo (PowerShell) para apuntar tessdata:
+
+```powershell
+$env:TESSDATA_PREFIX = 'C:\Program Files\Tesseract-OCR\tessdata'
+```
+
+Comportamiento implementado en la app:
+
+- Primero intenta invocar el ejecutable `tesseract` (si está instalado).
+- Si falla al arrancar el proceso, intenta usar Tess4J en-JVM como fallback.
+- Si ambos fallan, la UI mostrará un mensaje con instrucciones para instalar y/o configurar Tesseract/Tess4J.
+
+Uso (PowerShell) — ejemplo con `curl.exe` incluido en Windows 10/11:
+
+```powershell
+# enviar la imagen y guardar  (ajusta ruta de archivo)
+curl.exe -X POST "http://localhost:8080/upload-numbers" -F "file=@C:\ruta\a\tu\imagen.jpg" -F "diaSemana=1"
+```
+
+Respuesta esperada: texto simple como `Saved numbers: [5, 12, 23, 34, 45, 56]` o un mensaje de error si no detecta números.
+
+Notas:
+
+- El endpoint llama al CLI `tesseract` con una whitelist de dígitos para mejorar la detección. La calidad del OCR depende de la imagen (contraste, tamaño de los dígitos, ruido).
+- Si prefieres una solución sin depender de Tesseract instalado, puedo agregar integración con una librería Java (Tess4J) o con OpenCV, aunque eso requiere dependencias nativas adicionales.
+
 ---
 
 Si quieres, puedo:

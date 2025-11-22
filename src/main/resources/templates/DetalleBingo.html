@@ -7,7 +7,7 @@
 
 </head>
 <body>
-	<div th:replace="nav :: nav"></div>
+	<div th:replace="~{nav :: nav}"></div>
 	<div class="container m-5">
 		
 			     <form method="post" th:action="@{/AddLinea/}+${cab.idBingo}" >
