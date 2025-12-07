@@ -3,6 +3,8 @@ package com.bingoTrome.Model;
 import com.bingoTrome.Enum.EnumDiaSemana;
 
 import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
@@ -13,7 +15,8 @@ import lombok.Data;
 @Table(name = "numerosobtenidos")
 public class Numero {
 	@Id
-	private int id ;
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private Integer id ;
 	private int numero ;
 	private Integer dia_semana;
 	

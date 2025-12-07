@@ -70,6 +70,7 @@ public class ControllerNumero {
 	
 	@PostMapping("/registrarNumero")
 	String registrarNumero(@ModelAttribute Numero numero) {
+		System.out.println(">>> ID recibido en el POST: " + numero.getId());
 		try {
 			repoNumeros.save(numero);
 		} catch (Exception e) {
