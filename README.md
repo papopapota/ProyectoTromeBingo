@@ -408,14 +408,6 @@ Si deseas contribuir al proyecto:
 4. Push a la rama (`git push origin feature/nueva-funcionalidad`)
 5. Crea un Pull Request
 
-## Licencia
-
-[Especificar licencia del proyecto]
-
-## Contacto
-
-[Información de contacto o enlaces relevantes]
-
 ---
 
 ## Notas de Versión
